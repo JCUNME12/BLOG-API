@@ -1,114 +1,160 @@
-# BLOG-API — Microserviço de Blog/Notícias
+# 📰 BLOG-API — Microserviço de Blog/Notícias
 
-> **Status:** projeto funcional e testado localmente com Laravel 12, API versionada em `/api/v1`, conexão com banco validada, CRUD de categorias validado e CRUD/listagem/filtros de posts validados.
+![PHP](https://img.shields.io/badge/PHP-8.2%2B-777BB4?style=flat-square&logo=php&logoColor=white)
+![Laravel](https://img.shields.io/badge/Laravel-12.x-FF2D20?style=flat-square&logo=laravel&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL%2FMariaDB-Banco%20de%20Dados-4479A1?style=flat-square&logo=mysql&logoColor=white)
+![Status](https://img.shields.io/badge/Status-Funcional-brightgreen?style=flat-square)
 
-## Integrantes
+Este é o microserviço responsável pelo gerenciamento de **posts**, **categorias**, **notícias publicadas**, **conteúdos em destaque** e **listagens públicas filtradas** dentro de um ecossistema baseado em APIs. O serviço permite cadastrar, consultar, atualizar e remover conteúdos de blog/notícias, além de disponibilizar endpoints públicos para consumo por frontend, gateway ou outros microsserviços.
 
-| Nome | Função no projeto |
+---
 
-| **João Carlos Campos** | Desenvolvimento da API e documentação Modelagem,banco de dados e revisão. |
-| **Lucas Higinio** | Testes, validação das rotas e integração. |
+## 👥 Integrantes do Grupo
 
+- **João Carlos Campos**
+- **Lucas Higinio**
 
+---
 
-## Descrição do serviço
+## 📝 Descrição do Serviço
 
-O **BLOG-API** é um microserviço responsável pelo gerenciamento e disponibilização de conteúdos de **blog, notícias e comunicados** dentro de uma arquitetura baseada em múltiplos serviços. Ele oferece uma API REST para criação, consulta, atualização e exclusão de **posts** e **categorias**, além de fornecer endpoints públicos para listagem paginada, busca por título, filtros por categoria, filtros por posts em destaque e consulta por slug.
+O **BLOG-API** atua como o serviço central de publicação de conteúdos informativos em uma arquitetura de microsserviços. Ele resolve o problema de organização e distribuição de notícias, permitindo que administradores cadastrem categorias e posts, enquanto usuários e outros serviços consomem apenas os conteúdos públicos publicados.
 
-O serviço foi desenvolvido com **Laravel 12** e segue uma organização orientada a boas práticas, utilizando **Models**, **Migrations**, **Controllers**, **Form Requests**, **API Resources**, rotas versionadas e health checks. A API foi preparada para futuramente receber autenticação JWT no grupo administrativo, mantendo separadas as rotas públicas de leitura e as rotas administrativas de escrita.
+A API foi desenvolvida em **Laravel 12**, utilizando uma estrutura organizada com **Models**, **Migrations**, **Controllers**, **Form Requests**, **API Resources** e rotas versionadas em `/api/v1`. O projeto está preparado para evoluir com autenticação JWT nas rotas administrativas, mantendo separadas as operações públicas de leitura e as operações administrativas de escrita.
 
-## Responsabilidades do microsserviço
+---
 
-| Responsabilidade | Descrição |
+## ⚙️ Responsabilidades do Microsserviço
+
+- **Gerenciamento de Categorias:** cadastrar, listar, consultar, atualizar e excluir categorias de notícias.
+- **Gerenciamento de Posts:** cadastrar, listar, consultar, atualizar e excluir posts do blog/notícias.
+- **Geração de Slugs:** criar slugs automaticamente a partir do nome da categoria ou título do post.
+- **Controle de Publicação:** permitir que posts sejam definidos como `draft` ou `published`.
+- **Posts em Destaque:** permitir marcação de conteúdos especiais por meio do campo `is_featured`.
+- **Listagem Pública:** disponibilizar posts e categorias para consumo externo.
+- **Filtros e Paginação:** permitir busca por título, categoria, destaque, status e paginação.
+- **Validação de Dados:** validar entradas por meio de Form Requests.
+- **Padronização de Respostas:** retornar dados em JSON utilizando API Resources.
+- **Health Checks:** fornecer rotas para verificar a saúde da API e da conexão com o banco.
+
+---
+
+## 🛠️ Tecnologias Utilizadas
+
+| Tecnologia | Uso no Projeto |
 |---|---|
-| Gerenciar categorias | Permite criar, listar, visualizar, atualizar e excluir categorias de notícias. |
-| Gerenciar posts | Permite criar, listar, visualizar, atualizar e excluir posts do blog/notícias. |
-| Gerar slugs automáticos | Cria slugs únicos a partir do título do post ou nome da categoria. |
-| Controlar publicação | Permite definir posts como `draft` ou `published`, além de informar `published_at`. |
-| Destacar conteúdos | Permite marcar posts como destaque por meio do campo `is_featured`. |
-| Fornecer listagem pública | Disponibiliza posts e categorias para consumo por frontend, gateway ou outros serviços. |
-| Aplicar filtros | Permite busca por título, filtro por categoria, filtro por destaque e paginação. |
-| Validar dados recebidos | Usa Form Requests para garantir entrada consistente e retornos de erro padronizados. |
-| Padronizar respostas | Usa API Resources para retornar JSON organizado e previsível. |
-| Verificar saúde do serviço | Oferece rotas de health check do serviço e da conexão com banco. |
-
-## Tecnologias utilizadas
-
-| Tecnologia | Finalidade |
-|---|---|
-| **PHP 8.2+** | Linguagem utilizada para executar a aplicação Laravel. |
-| **Laravel 12** | Framework principal da API. |
+| **PHP 8.2+** | Linguagem principal utilizada pela aplicação. |
+| **Laravel 12** | Framework utilizado para construção da API REST. |
 | **Composer** | Gerenciador de dependências PHP. |
-| **MySQL/MariaDB** | Banco de dados utilizado no ambiente local com XAMPP. |
-| **XAMPP** | Ambiente local contendo Apache, PHP e MySQL/MariaDB. |
-| **PowerShell** | Terminal usado nos testes locais em Windows. |
-| **Git e GitHub** | Versionamento e hospedagem do repositório. |
+| **MySQL/MariaDB** | Banco de dados relacional utilizado pelo microserviço. |
+| **XAMPP** | Ambiente local usado para executar Apache, PHP e MySQL/MariaDB no Windows. |
+| **PowerShell** | Terminal utilizado para execução dos comandos e testes locais. |
+| **Git** | Controle de versão do código-fonte. |
+| **GitHub/Git remoto** | Hospedagem do repositório e entrega do projeto. |
 
-## Requisitos necessários para rodar o projeto
+---
 
-Este projeto foi testado localmente sem Docker, utilizando XAMPP no Windows. Para executar o projeto, é necessário ter PHP, Composer, MySQL/MariaDB e Git instalados e acessíveis pelo terminal.
+## ⚙️ Requisitos Necessários
 
-| Requisito | Versão recomendada |
+Para rodar este microserviço localmente, é necessário ter instalado:
+
+- **PHP 8.2 ou superior**.
+- **Composer 2.x ou superior**.
+- **MySQL ou MariaDB**, podendo ser pelo XAMPP.
+- **Git** para clonar e versionar o projeto.
+- **PowerShell**, Prompt de Comando, Git Bash ou terminal equivalente.
+
+| Requisito | Versão Recomendada |
 |---|---|
-| PHP | 8.2 ou superior |
-| Composer | 2.x ou superior |
+| PHP | 8.2+ |
 | Laravel | 12.x |
+| Composer | 2.x+ |
 | Banco de dados | MySQL 8.x ou MariaDB compatível |
 | Servidor local | XAMPP ou equivalente |
-| Git | Versão atual estável |
 
-## Opção escolhida: sem Docker
+---
 
-Nesta entrega, o projeto está configurado para execução **sem Docker**, usando ambiente local com XAMPP. Portanto, os arquivos `Dockerfile` e `docker-compose.yml` não são obrigatórios para esta versão. Caso o grupo decida migrar para Docker futuramente, será necessário adicionar esses arquivos e atualizar este README com portas, containers, volumes e variáveis de ambiente.
+## 📦 Ambiente de Execução
 
-## Passo a passo de instalação
+Este projeto foi configurado para execução **sem Docker**, utilizando ambiente local com **XAMPP** no Windows. Portanto, os arquivos `Dockerfile` e `docker-compose.yml` não são obrigatórios nesta entrega.
 
-Clone o repositório e acesse a pasta do projeto:
+> A opção escolhida para esta entrega foi a execução local sem Docker. Caso o projeto seja migrado futuramente para containers, será necessário criar o `Dockerfile`, o `docker-compose.yml` e atualizar esta documentação com portas, serviços, volumes e variáveis de ambiente.
+
+---
+
+## 🚀 Passo a Passo de Instalação e Execução
+
+### 1. Clonar o Repositório
 
 ```bash
-git clone https://github.com/SEU-USUARIO/BLOG-API.git
+git clone https://github.com/JCUNME12/BLOG-API.git
 cd BLOG-API
 ```
 
-Instale as dependências PHP:
+Caso esteja usando o repositório institucional, utilize:
+
+```bash
+git clone https://git.juancjc.com.br/Joao_Carlos_Campos/blog-api.git
+cd blog-api
+```
+
+### 2. Instalar as Dependências
 
 ```bash
 composer install
 ```
 
-Crie o arquivo de ambiente com base no exemplo:
+### 3. Criar o Arquivo `.env`
 
-```bash
-cp .env.example .env
-```
-
-No Windows PowerShell, caso o comando `cp` não esteja disponível, use:
+No Windows PowerShell, execute:
 
 ```powershell
 copy .env.example .env
 ```
 
-Gere a chave da aplicação:
+Em Linux, macOS ou Git Bash, execute:
+
+```bash
+cp .env.example .env
+```
+
+### 4. Gerar a Chave da Aplicação
 
 ```bash
 php artisan key:generate
 ```
 
-Crie o banco de dados no MySQL/MariaDB com o nome:
+### 5. Criar o Banco de Dados
+
+No MySQL/MariaDB, crie um banco chamado `blog_api`:
 
 ```sql
 CREATE DATABASE blog_api;
 ```
 
-Depois execute as migrations:
+### 6. Executar as Migrations
 
 ```bash
 php artisan migrate
 ```
 
-## Configuração do `.env`
+### 7. Iniciar o Servidor Local
 
-A configuração abaixo representa o ambiente local usando MySQL/MariaDB pelo XAMPP. O usuário padrão costuma ser `root` e, em instalações locais comuns do XAMPP, a senha geralmente fica vazia.
+```bash
+php artisan serve
+```
+
+A aplicação ficará disponível em:
+
+```text
+http://127.0.0.1:8000
+```
+
+---
+
+## 🔐 Configuração do `.env`
+
+O arquivo `.env.example` deve ficar versionado no repositório. Já o arquivo `.env` real deve permanecer apenas na máquina local, pois contém configurações específicas do ambiente.
 
 ```dotenv
 APP_NAME="Blog API"
@@ -136,16 +182,18 @@ LOG_CHANNEL=stack
 LOG_LEVEL=debug
 ```
 
-Após alterar o `.env`, limpe as configurações carregadas em cache:
+Após alterar configurações de ambiente, limpe o cache do Laravel:
 
 ```bash
 php artisan config:clear
 php artisan route:clear
 ```
 
-## Registro das rotas de API no Laravel 12
+---
 
-Em projetos Laravel 12 recém-criados, é importante confirmar que o arquivo `routes/api.php` está registrado no `bootstrap/app.php`. O bloco `withRouting` deve conter a entrada `api`:
+## 🧭 Observação Importante sobre Laravel 12
+
+Em projetos Laravel 12, o arquivo `routes/api.php` precisa estar registrado no `bootstrap/app.php`. O bloco `withRouting` deve conter a entrada `api`:
 
 ```php
 ->withRouting(
@@ -156,93 +204,80 @@ Em projetos Laravel 12 recém-criados, é importante confirmar que o arquivo `ro
 )
 ```
 
-Sem essa configuração, as rotas `/api/v1/...` podem retornar `404 Not Found`, mesmo que o arquivo `routes/api.php` exista no projeto.
+Sem essa configuração, as rotas `/api/v1/...` podem retornar `404 Not Found`, mesmo que estejam corretamente declaradas no arquivo `routes/api.php`.
 
-## Como executar o projeto
+---
 
-Com o banco de dados criado, dependências instaladas e `.env` configurado, execute:
+## 🧪 Como Testar o Projeto
 
-```bash
-php artisan serve
-```
+Para testar as rotas da API, podem ser usadas ferramentas como **Postman**, **Insomnia** ou o próprio terminal com **Invoke-RestMethod** no PowerShell.
 
-A aplicação ficará disponível em:
-
-```text
-http://127.0.0.1:8000
-```
-
-O dashboard simples com as rotas documentadas pode ser acessado em:
-
-```text
-http://127.0.0.1:8000/
-```
-
-## Como testar o projeto
-
-Primeiro, teste se o serviço está online:
-
-```bash
-curl http://127.0.0.1:8000/api/v1/health
-```
-
-Depois, teste a conexão com o banco:
-
-```bash
-curl http://127.0.0.1:8000/api/v1/health-check-db
-```
-
-No PowerShell, recomenda-se usar `Invoke-RestMethod` para testar requisições JSON com mais segurança.
+### Teste de Saúde da API
 
 ```powershell
 Invoke-RestMethod -Uri "http://127.0.0.1:8000/api/v1/health" -Method Get
 ```
 
-## Rotas da API
+### Teste de Conexão com o Banco
 
-As rotas seguem o prefixo `/api/v1`. As rotas públicas são usadas para leitura e podem ser consumidas por frontend, gateway ou outros microsserviços. As rotas administrativas permitem escrita e estão preparadas para receber autenticação JWT futuramente.
+```powershell
+Invoke-RestMethod -Uri "http://127.0.0.1:8000/api/v1/health-check-db" -Method Get
+```
 
-| Método | Endpoint | Acesso | Descrição |
+### Cabeçalhos Recomendados para POST, PUT e PATCH
+
+```http
+Accept: application/json
+Content-Type: application/json
+```
+
+---
+
+## 🔒 Rotas da API
+
+Todas as rotas principais usam o prefixo `/api/v1`. As rotas públicas são voltadas para leitura, enquanto as rotas administrativas realizam operações de criação, atualização e exclusão.
+
+| Método | Endpoint | Tipo | Descrição |
 |---|---|---|---|
-| `GET` | `/api/v1/health` | Público | Verifica se o serviço está online. |
-| `GET` | `/api/v1/health-check-db` | Público | Verifica se a conexão com o banco de dados está funcionando. |
-| `GET` | `/api/v1/public/posts` | Público | Lista posts com paginação e filtros. |
+| `GET` | `/api/v1/health` | Público | Verifica se a API está online. |
+| `GET` | `/api/v1/health-check-db` | Público | Verifica a conexão com o banco de dados. |
+| `GET` | `/api/v1/public/posts` | Público | Lista posts publicados com filtros e paginação. |
 | `GET` | `/api/v1/public/posts/{slug}` | Público | Busca um post publicado pelo slug. |
-| `GET` | `/api/v1/public/categories` | Público | Lista categorias com contagem de posts. |
+| `GET` | `/api/v1/public/categories` | Público | Lista categorias disponíveis. |
 | `GET` | `/api/v1/public/categories/{slug}` | Público | Busca uma categoria pelo slug. |
 | `GET` | `/api/v1/admin/posts` | Administrativo | Lista posts no contexto administrativo. |
 | `POST` | `/api/v1/admin/posts` | Administrativo | Cria um novo post. |
 | `GET` | `/api/v1/admin/posts/{id}` | Administrativo | Busca um post por ID. |
 | `PUT/PATCH` | `/api/v1/admin/posts/{id}` | Administrativo | Atualiza um post existente. |
 | `DELETE` | `/api/v1/admin/posts/{id}` | Administrativo | Remove um post. |
-| `GET` | `/api/v1/admin/categories` | Administrativo | Lista categorias. |
+| `GET` | `/api/v1/admin/categories` | Administrativo | Lista categorias no contexto administrativo. |
 | `POST` | `/api/v1/admin/categories` | Administrativo | Cria uma nova categoria. |
 | `GET` | `/api/v1/admin/categories/{id}` | Administrativo | Busca uma categoria por ID. |
 | `PUT/PATCH` | `/api/v1/admin/categories/{id}` | Administrativo | Atualiza uma categoria existente. |
-| `DELETE` | `/api/v1/admin/categories/{id}` | Administrativo | Remove uma categoria, desde que não tenha posts vinculados. |
+| `DELETE` | `/api/v1/admin/categories/{id}` | Administrativo | Remove uma categoria sem posts vinculados. |
 
-## Filtros disponíveis na listagem de posts
+---
 
-| Parâmetro | Tipo | Exemplo | Descrição |
+## 🔎 Filtros Disponíveis na Listagem de Posts
+
+| Parâmetro | Tipo | Exemplo | Finalidade |
 |---|---|---|---|
 | `search` | string | `/api/v1/public/posts?search=Laravel` | Busca posts pelo título. |
 | `category_id` | integer | `/api/v1/public/posts?category_id=1` | Filtra posts por ID da categoria. |
 | `category_slug` | string | `/api/v1/public/posts?category_slug=tecnologia` | Filtra posts pelo slug da categoria. |
-| `is_featured` | boolean | `/api/v1/public/posts?is_featured=true` | Filtra posts destacados. |
+| `is_featured` | boolean | `/api/v1/public/posts?is_featured=true` | Filtra posts em destaque. |
 | `status` | string | `/api/v1/public/posts?status=published` | Filtra por `draft` ou `published`. |
 | `per_page` | integer | `/api/v1/public/posts?per_page=15` | Define a quantidade de itens por página. |
 
-## Exemplos de requisição e resposta em JSON
+---
 
-### Criar categoria
+## 📤 Exemplos de Requisição e Resposta em JSON
 
-**Requisição:**
+### Criar Categoria
 
-```http
-POST /api/v1/admin/categories
-Content-Type: application/json
-Accept: application/json
-```
+**Endpoint:** `POST /api/v1/admin/categories`
+
+**Corpo da requisição:**
 
 ```json
 {
@@ -251,7 +286,7 @@ Accept: application/json
 }
 ```
 
-**Resposta esperada:**
+**Retorno esperado:**
 
 ```json
 {
@@ -267,15 +302,11 @@ Accept: application/json
 }
 ```
 
-### Criar post
+### Criar Post
 
-**Requisição:**
+**Endpoint:** `POST /api/v1/admin/posts`
 
-```http
-POST /api/v1/admin/posts
-Content-Type: application/json
-Accept: application/json
-```
+**Corpo da requisição:**
 
 ```json
 {
@@ -290,7 +321,7 @@ Accept: application/json
 }
 ```
 
-**Resposta esperada:**
+**Retorno esperado:**
 
 ```json
 {
@@ -309,23 +340,16 @@ Accept: application/json
       "name": "Tecnologia",
       "slug": "tecnologia",
       "description": "Noticias sobre tecnologia, inovacao e software."
-    },
-    "created_at": "2026-05-28T16:18:43.000000Z",
-    "updated_at": "2026-05-28T16:18:43.000000Z"
+    }
   }
 }
 ```
 
-### Listar posts com paginação
+### Listar Posts Publicados
 
-**Requisição:**
+**Endpoint:** `GET /api/v1/public/posts`
 
-```http
-GET /api/v1/public/posts
-Accept: application/json
-```
-
-**Resposta esperada:**
+**Retorno esperado:**
 
 ```json
 {
@@ -359,47 +383,11 @@ Accept: application/json
 }
 ```
 
-### Atualizar post
+### Excluir Post
 
-**Requisição:**
+**Endpoint:** `DELETE /api/v1/admin/posts/1`
 
-```http
-PATCH /api/v1/admin/posts/1
-Content-Type: application/json
-Accept: application/json
-```
-
-```json
-{
-  "title": "Laravel 12 em APIs de Noticias",
-  "is_featured": false
-}
-```
-
-**Resposta esperada:**
-
-```json
-{
-  "data": {
-    "id": 1,
-    "title": "Laravel 12 em APIs de Noticias",
-    "slug": "laravel-12-em-apis-de-noticias",
-    "is_featured": false,
-    "status": "published"
-  }
-}
-```
-
-### Excluir post
-
-**Requisição:**
-
-```http
-DELETE /api/v1/admin/posts/1
-Accept: application/json
-```
-
-**Resposta esperada:**
+**Retorno esperado:**
 
 ```json
 {
@@ -407,77 +395,44 @@ Accept: application/json
 }
 ```
 
-## Quais dados o serviço recebe
+---
 
-O serviço recebe dados relacionados a categorias e posts. Para categorias, recebe `name`, `slug` opcional e `description`. Para posts, recebe `title`, `slug` opcional, `content`, `excerpt`, `category_id`, `featured_image`, `is_featured`, `status` e `published_at`.
+## 📥 Dados Recebidos e Retornados
 
-| Entidade | Dados recebidos |
+O serviço recebe dados relacionados às entidades **Categoria** e **Post**. As respostas são retornadas em JSON e seguem uma estrutura padronizada por meio de API Resources.
+
+| Entidade | Dados Recebidos |
 |---|---|
-| Categoria | `name`, `slug`, `description` |
-| Post | `title`, `slug`, `content`, `excerpt`, `category_id`, `featured_image`, `is_featured`, `status`, `published_at` |
+| Categoria | `name`, `slug` opcional, `description` |
+| Post | `title`, `slug` opcional, `content`, `excerpt`, `category_id`, `featured_image`, `is_featured`, `status`, `published_at` |
 
-## Quais dados o serviço retorna
-
-O serviço retorna respostas JSON padronizadas por meio de API Resources. As respostas de post incluem os dados principais do conteúdo e, quando aplicável, os dados da categoria relacionada. As listagens paginadas retornam também os objetos `links` e `meta`, permitindo navegação entre páginas.
-
-| Resposta | Dados retornados |
+| Resposta | Dados Retornados |
 |---|---|
 | Categoria | `id`, `name`, `slug`, `description`, `posts_count`, `created_at`, `updated_at` |
 | Post | `id`, `title`, `slug`, `content`, `excerpt`, `featured_image`, `is_featured`, `status`, `published_at`, `category`, `created_at`, `updated_at` |
 | Paginação | `data`, `links`, `meta` |
 
-## Integrações com outros microsserviços
+---
 
-O **BLOG-API** foi pensado para participar de uma arquitetura maior de microsserviços. Nesta versão, a integração real implementada é com o banco de dados do próprio serviço. As demais integrações estão documentadas como pontos previstos para evolução do sistema.
+## 🔗 Integrações com Outros Microsserviços
 
-| Serviço externo | Tipo de integração | Situação | Descrição |
+Este serviço trabalha de forma desacoplada, mas foi projetado para integrar um ecossistema maior. Nesta versão, a integração real implementada é com seu próprio banco de dados. As demais integrações estão documentadas como evolução futura.
+
+| Serviço | Tipo de Integração | Situação | Descrição |
 |---|---|---|---|
-| Auth Service | Consumo futuro | Preparado | O grupo administrativo poderá validar JWT emitido pelo serviço de autenticação. |
-| Gateway/API Gateway | Consumidor da API | Previsto | Um gateway pode encaminhar chamadas públicas e administrativas para o BLOG-API. |
-| Frontend/Web App | Consumidor da API | Previsto | A interface web/mobile pode consumir posts, categorias, destaques e buscas. |
-| Notification Service | Consumidor/evento futuro | Previsto | Pode ser notificado quando um post for publicado para avisar usuários. |
-| Media/Storage Service | Consumo futuro | Previsto | Pode armazenar e fornecer URLs de imagens usadas em `featured_image`. |
-| Search Service | Consumidor futuro | Previsto | Pode indexar posts publicados para busca global do sistema. |
+| **Banco MySQL/MariaDB** | Consumo direto | Implementado | Armazena posts, categorias e metadados. |
+| **Auth Service** | Consumo futuro | Preparado | Poderá validar tokens JWT para proteger rotas administrativas. |
+| **API Gateway** | Consumidor da API | Previsto | Poderá centralizar chamadas para o BLOG-API. |
+| **Frontend Web/Mobile** | Consumidor da API | Previsto | Poderá exibir posts, categorias, destaques e buscas. |
+| **Notification Service** | Consumidor futuro | Previsto | Poderá notificar usuários quando novos posts forem publicados. |
+| **Search Service** | Consumidor futuro | Previsto | Poderá indexar posts publicados para busca global. |
+| **Media/Storage Service** | Consumo futuro | Previsto | Poderá armazenar imagens usadas no campo `featured_image`. |
 
-## Quais serviços o BLOG-API consome
+---
 
-Atualmente, o BLOG-API consome diretamente apenas seu banco de dados relacional. Em uma evolução da arquitetura, ele poderá consumir o serviço de autenticação para validar permissões administrativas e um serviço de mídia para gerenciar upload e armazenamento de imagens.
+## 🔄 Fluxo Principal do Serviço
 
-| Serviço consumido | Finalidade |
-|---|---|
-| Banco MySQL/MariaDB | Persistir posts, categorias e metadados. |
-| Auth Service | Validar tokens JWT em rotas administrativas, em evolução futura. |
-| Media/Storage Service | Obter ou validar URLs de imagens destacadas, em evolução futura. |
-
-## Quais serviços utilizam a API
-
-A API pode ser utilizada por interfaces frontend, aplicativos móveis, gateway central, microsserviço de notificações, serviço de busca e painéis administrativos.
-
-| Consumidor | Uso principal |
-|---|---|
-| Frontend Web | Exibir notícias, posts, categorias e destaques. |
-| Aplicativo Mobile | Consumir conteúdo público do blog/notícias. |
-| API Gateway | Centralizar o acesso ao microserviço. |
-| Painel Administrativo | Criar, editar e remover posts e categorias. |
-| Notification Service | Enviar notificações quando novos posts forem publicados. |
-| Search Service | Indexar conteúdos publicados para busca global. |
-
-## Fluxo principal do serviço
-
-O fluxo principal começa quando um administrador cria uma categoria e, em seguida, cadastra um post vinculado a essa categoria. O serviço valida os dados recebidos, gera automaticamente o slug, grava as informações no banco de dados e disponibiliza o conteúdo pelas rotas públicas quando o status está como `published`.
-
-| Etapa | Descrição |
-|---|---|
-| 1 | Administrador cria uma categoria, como `Tecnologia`. |
-| 2 | Administrador cria um post vinculado à categoria. |
-| 3 | O BLOG-API valida os dados usando Form Requests. |
-| 4 | O serviço gera slugs únicos para categoria e post. |
-| 5 | O post é salvo como `draft` ou `published`. |
-| 6 | Se publicado, o post fica disponível nas rotas públicas. |
-| 7 | Frontend, gateway ou outros serviços consomem a listagem de posts. |
-| 8 | Serviços externos, como notificações ou busca, podem utilizar os dados publicados. |
-
-### Exemplo de fluxo dentro do sistema geral
+O fluxo principal começa quando um administrador cria uma categoria e cadastra um post vinculado a ela. O BLOG-API valida os dados recebidos, gera o slug automaticamente, salva o conteúdo no banco e disponibiliza o post nas rotas públicas quando o status está como `published`.
 
 ```text
 Administrador cadastra categoria
@@ -493,20 +448,32 @@ Usuário visualiza notícia publicada
 Serviços de busca/notificação podem consumir o conteúdo publicado
 ```
 
-## Possíveis erros e retornos esperados
+| Etapa | Descrição |
+|---|---|
+| 1 | O administrador cria uma categoria, como `Tecnologia`. |
+| 2 | O administrador cria um post vinculado à categoria. |
+| 3 | O serviço valida os dados usando Form Requests. |
+| 4 | O sistema gera automaticamente os slugs. |
+| 5 | O post é salvo como `draft` ou `published`. |
+| 6 | Se estiver publicado, o post aparece nas rotas públicas. |
+| 7 | Frontend, gateway ou outros serviços consomem a listagem. |
 
-A API retorna códigos HTTP adequados para falhas de validação, registros inexistentes, conflitos de integridade e indisponibilidade do banco.
+---
 
-| Situação | Código HTTP | Exemplo de retorno |
+## ⚠️ Possíveis Erros e Retornos Esperados
+
+Caso algo saia do fluxo ideal, a API retorna códigos HTTP e mensagens adequadas para facilitar o tratamento pelo cliente.
+
+| Situação | Código HTTP | Exemplo de Retorno |
 |---|---:|---|
-| Dados inválidos | `422` | Campos obrigatórios ausentes ou formato inválido. |
-| Post inexistente | `404` | Registro não encontrado. |
-| Categoria inexistente | `404` | Registro não encontrado. |
+| Dados inválidos | `422` | Campos obrigatórios ausentes ou em formato inválido. |
+| Post inexistente | `404` | Registro de post não encontrado. |
+| Categoria inexistente | `404` | Registro de categoria não encontrado. |
 | Categoria com posts vinculados | `409` | Exclusão bloqueada por conflito de integridade. |
-| Serviço indisponível | `500` | Erro inesperado do servidor. |
-| Banco indisponível | `503` | Health check do banco falha. |
+| Erro interno | `500` | Erro inesperado no servidor. |
+| Banco indisponível | `503` | Falha no health check do banco de dados. |
 
-### Exemplo de erro de validação
+### Exemplo de Erro de Validação
 
 ```json
 {
@@ -519,15 +486,7 @@ A API retorna códigos HTTP adequados para falhas de validação, registros inex
 }
 ```
 
-### Exemplo de categoria inexistente
-
-```json
-{
-  "message": "No query results for model [App\\Models\\Category] 999"
-}
-```
-
-### Exemplo de conflito ao excluir categoria com posts
+### Exemplo de Categoria com Posts Vinculados
 
 ```json
 {
@@ -535,54 +494,9 @@ A API retorna códigos HTTP adequados para falhas de validação, registros inex
 }
 ```
 
-## Comandos úteis para testes no PowerShell
+---
 
-### Criar categoria
-
-```powershell
-$body = @{
-  name = "Tecnologia"
-  description = "Noticias sobre tecnologia, inovacao e software."
-} | ConvertTo-Json -Compress
-
-Invoke-RestMethod `
-  -Uri "http://127.0.0.1:8000/api/v1/admin/categories" `
-  -Method Post `
-  -Headers @{ Accept = "application/json" } `
-  -ContentType "application/json" `
-  -Body $body
-```
-
-### Criar post
-
-```powershell
-$body = @{
-  title = "Laravel 12 em Microsservicos"
-  content = "Conteudo completo da noticia sobre Laravel 12 em uma arquitetura de microsservicos."
-  excerpt = "Resumo da noticia sobre Laravel 12."
-  category_id = 1
-  featured_image = "https://cdn.example.com/images/laravel.jpg"
-  is_featured = $true
-  status = "published"
-  published_at = "2026-05-28 10:00:00"
-} | ConvertTo-Json -Compress
-
-Invoke-RestMethod `
-  -Uri "http://127.0.0.1:8000/api/v1/admin/posts" `
-  -Method Post `
-  -Headers @{ Accept = "application/json" } `
-  -ContentType "application/json" `
-  -Body $body
-```
-
-### Listar posts formatando JSON
-
-```powershell
-$response = Invoke-RestMethod -Uri "http://127.0.0.1:8000/api/v1/public/posts" -Method Get
-$response | ConvertTo-Json -Depth 10
-```
-
-## Documentação dos arquivos principais
+## 🧾 Arquivos Principais do Projeto
 
 | Arquivo | Responsabilidade |
 |---|---|
@@ -599,23 +513,35 @@ $response | ConvertTo-Json -Depth 10
 | `routes/api.php` | Rotas versionadas da API. |
 | `routes/web.php` | Dashboard simples com rotas disponíveis. |
 
-## Checklist de entrega
+---
 
-| Item obrigatório | Situação |
+## ✅ Checklist de Entrega
+
+| Item Obrigatório | Situação |
 |---|---|
-| Link do repositório | Pendente após criação no GitHub. |
+| Link do repositório | Atendido. |
 | README completo | Atendido por este arquivo. |
-| `.env.example` | Deve ser versionado no repositório. |
-| Dockerfile e docker-compose.yml | Não aplicável nesta entrega, pois a opção escolhida é sem Docker. |
-| Documentação das rotas | Atendida. |
-| Exemplos JSON | Atendidos. |
-| Explicação das integrações | Atendida. |
+| `.env.example` | Atendido e deve ser versionado. |
+| `.env` real fora do Git | Atendido pelo `.gitignore`. |
+| Documentação das rotas | Atendido. |
+| Exemplos JSON | Atendido. |
+| Explicação das integrações | Atendido. |
 | Fluxo principal do serviço | Atendido. |
 | Como executar localmente | Atendido. |
 | Como testar localmente | Atendido. |
+| Dockerfile e docker-compose.yml | Não aplicável nesta entrega sem Docker. |
 
-## Referências
+---
 
-[1]: https://laravel.com/docs/12.x "Laravel 12 Documentation"
-[2]: https://getcomposer.org/doc/ "Composer Documentation"
-[3]: https://www.php.net/manual/pt_BR/ "PHP Manual"
+## 📚 Referências
+
+- [Laravel 12 Documentation](https://laravel.com/docs/12.x)
+- [Composer Documentation](https://getcomposer.org/doc/)
+- [PHP Manual](https://www.php.net/manual/pt_BR/)
+- [MySQL Documentation](https://dev.mysql.com/doc/)
+
+---
+
+## 📌 Observação Final
+
+Este microserviço está funcional localmente e foi testado com rotas de health check, CRUD de categorias, CRUD de posts, filtros públicos, paginação, slugs automáticos, status de publicação e posts em destaque.
